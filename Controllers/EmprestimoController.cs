@@ -29,6 +29,7 @@ namespace EmprestimoApp.Controllers
                 _db.Emprestimos.Add(emprestimo);
                 _db.SaveChanges();
 
+                TempData["MensagemSucesso"] = "Cadastro realizado com sucesso";
                 return RedirectToAction("Index");
             }
             return View();
@@ -54,6 +55,8 @@ namespace EmprestimoApp.Controllers
             if(ModelState.IsValid){
                 _db.Emprestimos.Update(emprestimo);
                 _db.SaveChanges();
+                TempData["MensagemSucesso"] = "Edição realizado com sucesso";
+
                 return RedirectToAction("Index");
             }
             return View(emprestimo);
@@ -80,6 +83,8 @@ namespace EmprestimoApp.Controllers
             }
             _db.Emprestimos.Remove(emprestimo);
             _db.SaveChanges();
+                TempData["MensagemSucesso"] = "Exclusão realizado com sucesso";
+
             return RedirectToAction("Index");
         }
 
