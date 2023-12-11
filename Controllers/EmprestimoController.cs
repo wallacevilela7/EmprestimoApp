@@ -29,6 +29,7 @@ namespace EmprestimoApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                emprestimo.DataUltimaAtualizacao = DateTime.Now;
                 _db.Emprestimos.Add(emprestimo);
                 _db.SaveChanges();
 
@@ -61,7 +62,13 @@ namespace EmprestimoApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Emprestimos.Update(emprestimo);
+                var emprestimoDb = _db.Emprestimos.Find(emprestimo.Id);
+
+                emprestimoDb.Fornecedor = emprestimo.Fornecedor;
+                emprestimoDb.Recebedor = emprestimo.Recebedor;
+                emprestimoDb.LivroEmprestado = emprestimo.LivroEmprestado;
+
+                _db.Emprestimos.Update(emprestimoDb);
                 _db.SaveChanges();
                 TempData["MensagemSucesso"] = "Edição realizado com sucesso";
 
